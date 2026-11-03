@@ -55,7 +55,7 @@ This package provides a way to build and interact with MuJoCo using Zig direct C
 
 - To run the `lqr` example inside the zig `zviewer`
 
-> [!WARNING]
+> [!NOTE]
 
 - This was originally built inside the upstream mujoco repository so edit the filepath to your mujoco/models directory or copy it here.
 
