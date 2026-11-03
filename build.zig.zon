@@ -1,0 +1,120 @@
+.{
+    .name = .lib_zmujoco,
+    .fingerprint = 0xaba5f16825593fb1,
+    .version = "0.0.1",
+    .minimum_zig_version = "0.17.0",
+
+    .dependencies = .{
+        // MuJoCo (raw source: engine, xml, user, render, simulate, plugin, studio, headers)
+        .mujoco = .{
+            .url = "https://github.com/google-deepmind/mujoco/archive/a6289c13780bfb876d496bf76ba9ac6a91b50760.tar.gz",
+            .hash = "N-V-__8AACivGAeB-3ZjUp0D2XNvXJwfAW1m2Ka0lZBApIhk",
+        },
+
+        // GLFW 3.4 (raw C source, same commit as simulate's CMake build)
+        .glfw = .{
+            .url = "https://github.com/glfw/glfw/archive/7b6aead9fb88b3623e3b3725ebb42670cbe4c579.tar.gz",
+            .hash = "N-V-__8AAL40TADEbrysYHBl-UIZO4KiG4chP8pLDVDINGH4",
+        },
+
+        // libccd - collision detection library (v2.1)
+        .libccd = .{
+            .url = "https://github.com/danfis/libccd/archive/7931e764a19ef6b21b443376c699bbc9c6d4fba8.tar.gz",
+            .hash = "N-V-__8AADIlBQC4ogMsRGuDQaxPkdleYYgWtJQrqaf7hYt5",
+        },
+
+        // Qhull 2020.2
+        .qhull = .{
+            .url = "https://github.com/qhull/qhull/archive/62ccc56af071eaa478bef6ed41fd7a55d3bb2d80.tar.gz",
+            .hash = "N-V-__8AAM2rYwAXSyYj-xiZncNfjjNrjoBVBINeFMHdFiw2",
+        },
+
+        // lodepng - PNG library
+        .lodepng = .{
+            .url = "https://github.com/lvandeve/lodepng/archive/17d08dd26cac4d63f43af217ebd70318bfb8189c.tar.gz",
+            .hash = "N-V-__8AAKaYDgCFduKxzOU20UUgZ56bB7mpcj27u1TP24Qa",
+        },
+
+        // tinyxml2 v11.0.0
+        .tinyxml2 = .{
+            .url = "https://github.com/leethomason/tinyxml2/archive/e6caeae85799003f4ca74ff26ee16a789bc2af48.tar.gz",
+            .hash = "N-V-__8AALTGLgC0aSBOzDeI_l4PP-dm4qyhXeGaBn3LDKM7",
+        },
+
+        // tinyobjloader
+        .tinyobjloader = .{
+            .url = "https://github.com/tinyobjloader/tinyobjloader/archive/1421a10d6ed9742f5b2c1766d22faa6cfbc56248.tar.gz",
+            .hash = "N-V-__8AANoTIgB-uTKjKCpPDXkUOw4zH9pPPlc64fUsqWob",
+        },
+
+        // MarchingCubeCpp - marching cubes header-only library
+        .marchingcubecpp = .{
+            .url = "https://github.com/aparis69/MarchingCubeCpp/archive/f03a1b3ec29b1d7d865691ca8aea4f1eb2c2873d.tar.gz",
+            .hash = "N-V-__8AANhWAAAMWQ8q3Klegr7l67evm7FUyzkiEqIOSkwi",
+        },
+
+        // TriangleMeshDistance - signed distance function to triangle mesh
+        .trianglemeshdistance = .{
+            .url = "https://github.com/InteractiveComputerGraphics/TriangleMeshDistance/archive/2cb643de1436e1ba8e2be49b07ec5491ac604457.tar.gz",
+            .hash = "N-V-__8AAHY7CABS9PA6541L_FGwQ_8PMvA2wm-tDTHg9nzd",
+        },
+
+        // Filament rc/1.78.1 (same commit as the CMake build), renderer of studio.
+        // Lazy: only fetched when a step that needs it is built.
+        .filament = .{
+            .url = "https://github.com/google/filament/archive/eec480f26618940d7cdb2ce64e01d2955babd04b.tar.gz",
+            .hash = "N-V-__8AABjuD1wceh4bIDzZgYVE933hOVaL0F17piwSvTdz",
+            .lazy = true,
+        },
+
+        // Studio dependencies, the same commits as the CMake build (lazy as well)
+        .sdl2 = .{
+            .url = "https://github.com/libsdl-org/SDL/archive/e64034952b2a8f8356895b56aa06645382395a18.tar.gz",
+            .hash = "N-V-__8AAGq7tgSyksw3CMTgTnXDgV_J1nRlJyi4oi17zavC",
+            .lazy = true,
+        },
+        .imgui = .{
+            .url = "https://github.com/ocornut/imgui/archive/b48d1afbe8ee8b238e2961dc363a949dd7304e23.tar.gz",
+            .hash = "N-V-__8AAAPHhAB86bkFSQlFlaioKXgArks51cXvTB1G5j7F",
+            .lazy = true,
+        },
+        .implot = .{
+            .url = "https://github.com/epezent/implot/archive/524f9fcd48d76c13fdf94c5ffbba8787a1ff7e39.tar.gz",
+            .hash = "N-V-__8AAKSTCwA_ALBxWjOi20O0c9_WB3Y1COzRQxwZLpLy",
+            .lazy = true,
+        },
+        .libwebp = .{
+            .url = "https://github.com/webmproject/libwebp/archive/refs/tags/v1.6.0.tar.gz",
+            .hash = "N-V-__8AAGkrewARcKiSyLfJKsaW0ZoqHh4hzi4mTGwekxjk",
+            .lazy = true,
+        },
+        .abseil = .{
+            .url = "https://github.com/abseil/abseil-cpp/archive/2065f4ded0558c6f89fee67c8e5228feb4eb960e.tar.gz",
+            .hash = "N-V-__8AAAb6rwAvjbslelMWGZ5NawDm9UCy88i7ui4wvLbd",
+            .lazy = true,
+        },
+        .font_awesome = .{
+            .url = "https://github.com/FortAwesome/Font-Awesome/archive/a8386aae19e200ddb0f6845b5feeee5eb7013687.tar.gz",
+            .hash = "N-V-__8AAB6YiwAIs6o-BIh9NhOeAPYheAzWt9g2rLj4J2YJ",
+            .lazy = true,
+        },
+        .atkinson_mono = .{
+            .url = "https://github.com/googlefonts/atkinson-hyperlegible-next-mono/archive/154d50362016cc3e873eb21d242cd0772384c8f9.tar.gz",
+            .hash = "N-V-__8AAIw0LQDkPA64-PT1SPt40wbekmLyjSCti0BhxiA_",
+            .lazy = true,
+        },
+        .atkinson_next = .{
+            .url = "https://github.com/googlefonts/atkinson-hyperlegible-next/archive/5d633f80fc654ef5fffa7cfc257528685158dcef.tar.gz",
+            .hash = "N-V-__8AAGFeOwCQ8CYsMb9bBzWW3MlJyow1qjgeUyJKzz7f",
+            .lazy = true,
+        },
+    },
+
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        "include",
+        "zig",
+    },
+}

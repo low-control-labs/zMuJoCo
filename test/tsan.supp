@@ -1,0 +1,57 @@
+# ThreadSanitizer suppressions for -Dsanitize-thread runs.
+#
+# Graphics drivers are not built with ThreadSanitizer, so it cannot see their
+# internal synchronization and reports false races on calls they make (free,
+# malloc, pthread_barrier_*, strcmp, ...). Ignore calls coming from them; races
+# in MuJoCo, simulate and our own code are still reported.
+# Patterns match anywhere in the library's full path, and each pattern must
+# match exactly one loaded library (otherwise ThreadSanitizer stops with an
+# error), so every library is listed on its own.
+
+# X11 and the GL dispatch library (glvnd), used by GLFW to create windows and
+# contexts. Hiding only the driver's lock/unlock calls otherwise leaves these
+# with half-seen mutex pairs: false lock-order-inversion, double-lock and
+# unlock-of-unlocked reports on the render thread.
+# All libraries GLFW 3.4 loads itself on X11 (x11_init.c, glx_context.c,
+# egl_context.c), plus the xcb and GL dispatch libraries underneath.
+called_from_lib:libX11.so
+called_from_lib:libX11-xcb.so
+called_from_lib:libXcursor.so
+called_from_lib:libXext.so
+called_from_lib:libXi.so
+called_from_lib:libXinerama.so
+called_from_lib:libXrandr.so
+called_from_lib:libXrender.so
+called_from_lib:libXxf86vm.so
+called_from_lib:libxcb.so
+called_from_lib:libGL.so
+called_from_lib:libGLX.so
+called_from_lib:libOpenGL.so
+called_from_lib:libEGL.so
+called_from_lib:libGLdispatch.so
+# Mutexes locked inside the libraries above are sometimes unlocked through
+# GLFW's own X11/GLX code (e.g. libX11's display lock in processEvent, the
+# driver's in destroyContextGLX; likely tail calls into the library), so the
+# unlock is attributed to GLFW and called_from_lib cannot match it. mutex: only
+# hides lock-misuse reports (double lock, unlock of unlocked) through these
+# GLFW files; data races there are still reported.
+mutex:x11_window.c
+mutex:x11_init.c
+mutex:x11_monitor.c
+mutex:glx_context.c
+
+# Mesa (radeonsi, iris, llvmpipe, ...)
+called_from_lib:libgallium
+called_from_lib:libGLX_mesa
+called_from_lib:libEGL_mesa
+# libdrm and its per-GPU libraries
+called_from_lib:libdrm.so
+called_from_lib:libdrm_amdgpu
+called_from_lib:libdrm_intel
+called_from_lib:libdrm_nouveau
+called_from_lib:libdrm_radeon
+# NVIDIA's proprietary driver
+called_from_lib:libnvidia-glcore
+called_from_lib:libnvidia-eglcore
+called_from_lib:libnvidia-glsi
+called_from_lib:libnvidia-tls
